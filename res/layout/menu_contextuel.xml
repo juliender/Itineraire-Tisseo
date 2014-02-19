@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:padding="15dip">
+ <LinearLayout 
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+  <Button
+    android:id="@+id/button1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Déplacer"
+    />
+    
+    <EditText 
+    android:padding="15dip"
+    android:id="@+id/EditText1"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:hint="Nouveau rang (nombre)"
+
+     />
+    
+  </LinearLayout>
+</RelativeLayout>

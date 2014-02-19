@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:title="Changer horaire" android:orderInCategory="1" android:id="@+id/changeTime"></item>
+<item android:title="Choix d'affichage" android:id="@+id/choixAff" android:orderInCategory="2" android:enabled="false"></item>
+<item android:titleCondensed="Synchroniser stations" android:title="Synchroniser les stations" android:id="@+id/syncStations"></item>
+<item android:titleCondensed="Ajouter une station (ouvre le navigateur)" android:title="Ajouter une station (ouvre le navigateur)" android:id="@+id/ajout"></item>
+<item android:id="@+id/sign" android:title="Signalement" android:visible="true"></item>
+</menu>
