@@ -1,10 +1,15 @@
 package metroBusToulouse.stations;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -16,6 +21,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -23,15 +29,37 @@ import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
+import android.util.Log;
 
 
 public class BaseStations {
 	
 	private static String url = "http://onlinux.free.fr/map/phpsqlajax_genxml.php";
 	private static SharedPreferences prefs;
+	private static ArrayList<Station> liste;
 	
 	public BaseStations(Context c){
 		prefs = c.getSharedPreferences("BaseStations", 0);
+		try {
+
+			InputStream input = c.getAssets().open("metro.json");
+			int size = input.available();
+			byte[] buffer = new byte[size];
+			input.read(buffer);
+			input.close();
+			String text = new String(buffer);
+
+	
+	      	JSONObject jObject = new JSONObject(text); 
+	      	Log.e("json",((JSONObject) jObject.getJSONArray("features").getJSONObject(0).get("properties")).getString("NOM"));
+	      	
+	      	
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -62,6 +90,7 @@ public class BaseStations {
 		}
 		return res;
 	}
+	
 	
 	public static int mettreDansPrefs() throws ClientProtocolException, IOException, URISyntaxException {
 		SharedPreferences.Editor editor = prefs.edit();
@@ -101,18 +130,18 @@ public class BaseStations {
 		BufferedReader bufferedReader = null;
 		InputStream inputStream = null;
 
-			//Cr�ation d'un DefaultHttpClient et un HttpGet permettant d'effectuer une requ�te HTTP de type GET
+			//Cr���ation d'un DefaultHttpClient et un HttpGet permettant d'effectuer une requ���te HTTP de type GET
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpGet httpGet = new HttpGet();
 
-			//Cr�ation de l'URI et on l'affecte au HttpGet
+			//Cr���ation de l'URI et on l'affecte au HttpGet
 			URI uri = new URI(url);
 			httpGet.setURI(uri);
 
 			//Execution du client HTTP avec le HttpGet
 			HttpResponse httpResponse = httpClient.execute(httpGet);
 			
-			//On r�cup�re la r�ponse dans un InputStream
+			//On r���cup���re la r���ponse dans un InputStream
 			inputStream = httpResponse.getEntity().getContent();
 			
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
